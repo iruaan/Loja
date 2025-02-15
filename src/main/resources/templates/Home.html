@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USECS Fashion</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap">
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" th:href="@{/css/HomeStyle.css}">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        <div class="logo">
+            <img src="logo.png" alt="USECS Fashion Logo"> <!-- Caminho real da logo -->
+        </div>
+        <div class="icones-direita">
+            <div class="login-icon"><img src="icons8-user-50.png" alt="Ícone de Usuário"></div>
+            <div class="cart-icon"><img src="carrinho.png" alt="Ícone de Carrinho"></div>
+        </div>
+    </header>
+
+    <!-- Menu Expansivo -->
+    <div class="menu-expansivo" id="menuExpansivo">
+        <div class="fechar-menu" onclick="toggleMenu()">&times;</div>
+        <a href="#">Vestidos</a>
+        <a href="#">Blusas</a>
+        <a href="#">Calças</a>
+        <a href="#">Acessórios</a>
+        <a href="#">Promoções</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div>
+<!--             <h1>Coleção Outono/Inverno 2023</h1>
+            <button>Compre Agora</button> -->
+        </div>
+    </section>
+
+    <!-- Seção de Produtos -->
+    <section class="produtos">
+        <h2>Nossos Produtos</h2>
+        <div class="produtos-container">
+            <div class="produto">
+                <img src="Cloth1.png" alt="Vestido Elegante">
+                <h3>Vestido Elegante</h3>
+                <p>R$ 199,90</p>
+            </div>
+            <div class="produto">
+                <img src="Cloth.png" alt="Blusa Básica">
+                <h3>Blusa Básica</h3>
+                <p>R$ 89,90</p>
+            </div>
+            <div class="produto">
+                <img src="Cloth3.png" alt="Calça Jeans">
+                <h3>Calça Jeans</h3>
+                <p>R$ 149,90</p>
+            </div>
+            <div class="produto">
+                <img src="Cloth4.png" alt="Bolsa Moderna">
+                <h3>Bolsa Moderna</h3>
+                <p>R$ 129,90</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Função para abrir/fechar o menu expansivo
+        function toggleMenu() {
+            const menu = document.getElementById('menuExpansivo');
+            menu.classList.toggle('active');
+        }
+    </script>
+</body>
+
+</html>
