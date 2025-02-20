@@ -7,12 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Controller
-public class HomeController {
+public class PageController {
 
     @GetMapping("/home")
-    public String getMethodName() {
+    public String home() {
         return "Home";
     }
     
-    
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+
 }

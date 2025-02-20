@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>USECS Fashion</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap">
-    <link rel="stylesheet" href="">
     <link rel="stylesheet" th:href="@{/css/HomeStyle.css}">
 </head>
 
@@ -18,7 +17,7 @@
             <img th:src="@{/images/logo.png}" alt="USECS Fashion Logo">
         </div>
         <div class="icones-direita">
-            <div class="login-icon"><img th:src="@{/images/icons8-user-50.png}" alt="Ícone de Usuário"></div>
+            <a href="/login"><div class="login-icon" ><img th:src="@{/images/icons8-user-50.png}" alt="Ícone de Usuário"></div></a>
             <div class="cart-icon"><img th:src="@{/images/carrinho.png}" alt="Ícone de Carrinho"></div>
         </div>
     </header>
