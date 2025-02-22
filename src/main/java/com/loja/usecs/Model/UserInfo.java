@@ -27,7 +27,7 @@ public class UserInfo implements UserDetails {
     private String password;
 
     @Column(nullable = false)
-    private String role;
+    private Role role;
 
     public Long getId() {
         return id;
@@ -53,11 +53,11 @@ public class UserInfo implements UserDetails {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
