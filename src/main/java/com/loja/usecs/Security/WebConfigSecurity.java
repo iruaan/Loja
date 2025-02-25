@@ -18,6 +18,8 @@ public class WebConfigSecurity {
                 )
                 .formLogin(form -> form
                     .loginPage("/login") // Define a página de login
+                    .usernameParameter("email") // Campo usado como username
+                    .passwordParameter("password") // Campo usado como senha
                     .defaultSuccessUrl("/home", true) // Página após login bem-sucedido
                     .permitAll()
                 )
