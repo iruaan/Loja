@@ -1,5 +1,15 @@
 package com.loja.usecs.Repository;
 
-public class UserRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+import com.loja.usecs.Model.UserInfo;
+
+public interface UserRepository extends JpaRepository<UserInfo,Long> {
+
+    UserInfo findByEmail(String email);
+
+    boolean existsByEmail(String email);
     
+
 }
