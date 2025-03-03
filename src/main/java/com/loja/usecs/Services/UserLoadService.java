@@ -1,6 +1,5 @@
 package com.loja.usecs.Services;
 
-import javax.management.relation.Role;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;

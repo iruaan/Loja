@@ -24,4 +24,8 @@ public class PageController {
         return "register";
     }
 
+    @GetMapping("/product")
+    public String producuts(){
+        return "product";
+    }
 }
