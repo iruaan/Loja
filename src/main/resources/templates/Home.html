@@ -45,28 +45,14 @@
     <section class="produtos">
         <h2>Nossos Produtos</h2>
         <div class="produtos-container">
-            <div class="produto">
-                <img src="Cloth1.png" alt="Vestido Elegante">
-                <h3>Vestido Elegante</h3>
-                <p>R$ 199,90</p>
-            </div>
-            <div class="produto">
-                <img src="Cloth.png" alt="Blusa Básica">
-                <h3>Blusa Básica</h3>
-                <p>R$ 89,90</p>
-            </div>
-            <div class="produto">
-                <img src="Cloth3.png" alt="Calça Jeans">
-                <h3>Calça Jeans</h3>
-                <p>R$ 149,90</p>
-            </div>
-            <div class="produto">
-                <img src="Cloth4.png" alt="Bolsa Moderna">
-                <h3>Bolsa Moderna</h3>
-                <p>R$ 129,90</p>
-            </div>
-        </div>
+    <div class="produto" th:each="product : ${products}">
+        <img th:src="${product.imageUrl}" alt="Imagem do Produto">
+        <h3 th:text="${product.name}"></h3>
+        <p th:text="'R$ ' + ${#numbers.formatDecimal(product.price, 1, 2)}"></p>
+    </div>
+</div>
     </section>
+    
 
     <script>
         // Função para abrir/fechar o menu expansivo
