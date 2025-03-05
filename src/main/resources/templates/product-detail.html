@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${product.name} + ' - USECS Fashion'"></title>
+    <link rel="stylesheet" th:href="@{/css/ProductDetailStyle.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="product-page-container">
+        <div class="product-content">
+
+            <!-- Galeria de imagens -->
+            <div class="product-gallery">
+                <div class="main-image">
+                    <img th:src="${product.imageUrl}" alt="Imagem do Produto">
+                </div>
+            </div>
+
+            <!-- Informações do produto -->
+            <div class="product-info">
+                <h1 th:text="${product.name}"></h1>
+                <p class="product-price" th:text="'R$ ' + ${#numbers.formatDecimal(product.price, 1, 2)}"></p>
+                
+                <p class="product-description">
+                    <strong>Descrição:</strong> <span th:text="${product.description}"></span>
+                </p>
+
+                <p><strong>Tamanho:</strong> <span th:text="${product.size}"></span></p>
+                <p><strong>Cor:</strong> <span th:text="${product.color}"></span></p>
+
+                <button class="buy-button">Comprar Agora</button>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

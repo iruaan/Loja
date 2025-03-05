@@ -46,7 +46,9 @@
         <h2>Nossos Produtos</h2>
         <div class="produtos-container">
     <div class="produto" th:each="product : ${products}">
-        <img th:src="${product.imageUrl}" alt="Imagem do Produto">
+        <a th:href="@{/products/{id}(id=${product.id})}">
+        <img th:src="${product.imageUrl}" alt="Imagem do Produto"> 
+        </a>
         <h3 th:text="${product.name}"></h3>
         <p th:text="'R$ ' + ${#numbers.formatDecimal(product.price, 1, 2)}"></p>
     </div>

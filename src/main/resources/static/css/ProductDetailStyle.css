@@ -1,0 +1,88 @@
+/* Estilos gerais */
+body {
+    font-family: 'Raleway', sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container da página de produto */
+.product-page-container {
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Conteúdo do produto */
+.product-content {
+    display: flex;
+    gap: 40px;
+}
+
+/* Galeria de imagens */
+.product-gallery {
+    flex: 1;
+}
+
+.product-gallery .main-image img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Informações do produto */
+.product-info {
+    flex: 1;
+    padding: 20px;
+}
+
+.product-info h1 {
+    font-size: 32px;
+    font-weight: 300;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.product-info .product-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.product-info .product-description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.product-info p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.product-info p strong {
+    font-weight: 700;
+}
+
+/* Botão de compra */
+.product-info .buy-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.product-info .buy-button:hover {
+    background-color: #333;
+}

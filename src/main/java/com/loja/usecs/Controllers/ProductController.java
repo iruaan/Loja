@@ -41,7 +41,7 @@ public class ProductController {
         product.setColor(color);
         product.setGender(gender);
         product.setBrand(brand);
-        product.setImageUrl(imageUrl); // A URL da imagem
+        product.setImageUrl(imageUrl); 
         product.setCategory(category);
 
         // Chama o serviço para salvar no banco de dados
