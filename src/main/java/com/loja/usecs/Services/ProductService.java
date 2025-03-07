@@ -14,6 +14,7 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+
     // Criar um novo produto
     public Product createProduct(Product product) {
         product.setCreatedAt(java.time.LocalDateTime.now());
@@ -56,4 +57,8 @@ public class ProductService {
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
+
+
+
+
 }

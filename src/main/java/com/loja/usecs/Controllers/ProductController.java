@@ -1,5 +1,8 @@
 package com.loja.usecs.Controllers;
 
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.loja.usecs.Model.Product;
+import com.loja.usecs.Model.ProductImage;
 import com.loja.usecs.Services.ProductService;
 
 @Controller
@@ -17,7 +21,6 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    // Recebe todos os parâmetros do produto
     @PostMapping("/create")
     public ResponseEntity<String> createProduct(
             @RequestParam String name,
@@ -28,10 +31,11 @@ public class ProductController {
             @RequestParam String color,
             @RequestParam String gender,
             @RequestParam String brand,
-            @RequestParam String imageUrl, // Link da imagem
-            @RequestParam String category
+            @RequestParam String imageUrl, // Imagem principal
+            @RequestParam String category,
+            @RequestParam List<ProductImage> image
     ) {
-        // Cria o produto com os parâmetros recebidos
+    
         Product product = new Product();
         product.setName(name);
         product.setDescription(description);
@@ -41,12 +45,14 @@ public class ProductController {
         product.setColor(color);
         product.setGender(gender);
         product.setBrand(brand);
-        product.setImageUrl(imageUrl); 
+        product.setImageUrl(imageUrl);
         product.setCategory(category);
+        product.setImages(image);
 
-        // Chama o serviço para salvar no banco de dados
+    
+    
         productService.createProduct(product);
-
+    
         return ResponseEntity.ok("Produto criado com sucesso!");
     }
 }

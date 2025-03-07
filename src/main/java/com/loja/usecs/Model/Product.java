@@ -2,6 +2,8 @@ package com.loja.usecs.Model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -22,6 +24,11 @@ public class Product {
     private String brand;       // Marca da roupa
 
     private String imageUrl;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductImage> images = new ArrayList<>();
+
+
     private Boolean active = true;  // Ativo por padrão
 
     private String category;    // Se quiser, pode ser Enum (Calça, Camiseta, etc.)
@@ -143,5 +150,13 @@ public class Product {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<ProductImage> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ProductImage> images) {
+        this.images = images;
     }
 }
