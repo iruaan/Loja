@@ -1,11 +1,35 @@
-/* Estilos gerais */
-body {
-    font-family: 'Raleway', sans-serif;
-    background-color: #ffffff;
-    color: #000000;
+/* Reset básico */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
+
+body {
+    font-family: 'Raleway', sans-serif;
+    /* Fonte Raleway para todo o corpo */
+    background-color: #ffffff;
+    color: #000000;
+    /* Texto preto */
+}
+
+h1,
+h2,
+h3 {
+    font-weight: 300;
+    /* Fonte mais fina para títulos */
+    color: #000000;
+    /* Texto preto */
+}
+
+p {
+    font-weight: 400;
+    /* Regular para parágrafos */
+    color: #000000;
+    /* Texto preto */
+}
+
+/* Header */
 
 /* Container da página de produto */
 .product-page-container {
@@ -101,3 +125,103 @@ body {
     border: 1px solid #ddd;
     cursor: pointer;
 }
+header {
+    background-color: #f8f6f6;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 120px;
+    /* Altura reduzida do header */
+}
+
+.logo img {
+    height: 255px;
+    /* Altura reduzida da logo */
+    width: auto;
+    /* Mantém a proporção da imagem */
+}
+
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: #000000;
+    /* Ícone preto */
+}
+
+.icones-direita {
+    display: flex;
+    gap: 15px;
+    /* Espaço entre os ícones */
+    align-items: center;
+}
+
+.icones-direita img {
+    width: 24px;
+    /* Tamanho fixo para os ícones */
+    height: 24px;
+    /* Tamanho fixo para os ícones */
+}
+
+/* Menu Expansivo (Lateral) */
+.menu-expansivo {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100vh;
+    background-color: #f9f9f9;
+    /* Fundo claro */
+    padding: 20px;
+    transition: left 0.3s ease;
+    z-index: 1001;
+}
+
+.menu-expansivo.active {
+    left: 0;
+}
+
+.menu-expansivo a {
+    display: block;
+    margin: 15px 0;
+    color: #000000;
+    /* Texto preto */
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 300;
+    /* Fonte mais fina */
+}
+
+.fechar-menu {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000000;
+    /* Ícone preto */
+}
+
+.size-options, .color-options {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.size-btn, .color-btn {
+    padding: 10px 15px;
+    border: 2px solid #000;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: white;
+    user-select: none;
+}
+
+.size-btn:hover, .color-btn:hover {
+    background-color: black;
+    color: white;
+}
+

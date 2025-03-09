@@ -17,17 +17,37 @@ public class Product {
     private String description;
     private Double price;
     private Integer stockQuantity;
-
-    private String size;        // P, M, G, GG
-    private String color;       // Preto, Branco, Azul...
     private String gender;      // Masculino, Feminino, Unissex
     private String brand;       // Marca da roupa
-
     private String imageUrl;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductImage> images = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "size_id", nullable = false)
+    private Size size;  // Agora é um objeto do banco
+
+    @ManyToOne
+    @JoinColumn(name = "color_id", nullable = false)
+    private Color color;  // Agora é um objeto do banco
+
+
+    public Size getSize() {
+        return size;
+    }
+
+    public void setSize(Size size) {
+        this.size = size;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
 
     private Boolean active = true;  // Ativo por padrão
 
@@ -80,21 +100,7 @@ public class Product {
         this.stockQuantity = stockQuantity;
     }
 
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
+    
 
     public String getGender() {
         return gender;

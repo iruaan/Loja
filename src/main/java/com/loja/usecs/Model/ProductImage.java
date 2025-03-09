@@ -7,7 +7,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
-
 @Entity
 public class ProductImage {
 
@@ -20,6 +19,16 @@ public class ProductImage {
     private Product product;
 
     private String imageUrl;
+
+    public ProductImage(){
+        
+    }
+
+    // Construtor corrigido
+    public ProductImage(String imageUrl, Product product) {
+        this.imageUrl = imageUrl;
+        this.product = product;
+    }
 
     public Long getId() {
         return id;
@@ -44,8 +53,4 @@ public class ProductImage {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-
-    // Getters e Setters
 }
-
-    

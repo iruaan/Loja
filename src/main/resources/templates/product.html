@@ -24,11 +24,17 @@
         <label for="stockQuantity">Quantidade em Estoque:</label>
         <input type="number" name="stockQuantity" id="stockQuantity" required /><br />
     
-        <label for="size">Tamanho:</label>
-        <input type="text" name="size" id="size" required /><br />
-    
-        <label for="color">Cor:</label>
-        <input type="text" name="color" id="color" required /><br />
+        <!-- Tamanho -->
+        <label for="sizeId">Tamanho:</label>
+        <select id="sizeId" name="sizeId" required>
+            <option th:each="size : ${sizes}" th:value="${size.id}" th:text="${size.name}"></option>
+        </select>
+
+        <!-- Cor -->
+        <label for="colorId">Cor:</label>
+        <select id="colorId" name="colorId" required>
+            <option th:each="color : ${colors}" th:value="${color.id}" th:text="${color.name}"></option>
+        </select>
     
         <label for="gender">Gênero:</label>
         <input type="text" name="gender" id="gender" required /><br />
@@ -42,9 +48,12 @@
         <label for="category">Categoria:</label>
         <input type="text" name="category" id="category" required /><br />
 
-        <label>Imagens Secundárias:</label>
-        <input type="text" name="secondaryImageUrl1" placeholder="URL da Imagem Secundária 1">
-    
+    <label for="imageUrls">Imagens Secundárias</label>
+    <div id="imageUrls">
+        <input type="text" name="imageUrls" placeholder="URL da Imagem Secundária 1">
+        <input type="text" name="imageUrls" placeholder="URL da Imagem Secundária 2">
+        <input type="text" name="imageUrls" placeholder="URL da Imagem Secundária 3">
+    </div>
 
     
         <button type="submit">Cadastrar Produto</button>

@@ -10,18 +10,42 @@
 </head>
 
 <body>
+    <!-- Header -->
+    <header>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        <div class="logo">
+            <img th:src="@{/images/logo.png}" alt="USECS Fashion Logo">
+        </div>
+        <div class="icones-direita">
+            <a href="/login"><div class="login-icon" ><img th:src="@{/images/icons8-user-50.png}" alt="Ícone de Usuário"></div></a>
+            <div class="cart-icon"><img th:src="@{/images/carrinho.png}" alt="Ícone de Carrinho"></div>
+        </div>
+    </header>
+
+    <!-- Menu Expansivo -->
+    <div class="menu-expansivo" id="menuExpansivo">
+        <div class="fechar-menu" onclick="toggleMenu()">&times;</div>
+        <a href="#">Vestidos</a>
+        <a href="#">Blusas</a>
+        <a href="#">Calças</a>
+        <a href="#">Acessórios</a>
+        <a href="#">Promoções</a>
+    </div>
+
+
     <div class="product-page-container">
         <div class="product-content">
 
-            <!-- Galeria de imagens -->
             <div class="product-gallery">
+                <!-- Imagem Principal -->
                 <div class="main-image">
                     <img th:src="${product.imageUrl}" alt="Imagem do Produto">
                 </div>
                 <div class="secondaryImages">
                     <img th:each="img : ${product.images}" th:src="${img.imageUrl}" alt="Imagem Secundária">
                 </div>
-            </div>
+                
+                
 
             <!-- Informações do produto -->
             <div class="product-info">
@@ -32,8 +56,18 @@
                     <strong>Descrição:</strong> <span th:text="${product.description}"></span>
                 </p>
 
-                <p><strong>Tamanho:</strong> <span th:text="${product.size}"></span></p>
-                <p><strong>Cor:</strong> <span th:text="${product.color}"></span></p>
+                <p><strong>Tamanho:</strong></p>
+                <div class="size-options">
+                    <!-- Corrigido para acessar o tamanho corretamente -->
+                    <button th:each="size : ${product.size}" th:text="${size.name}" class="size-btn"></button>
+                </div>
+                
+                <!-- Seleção de Cor com botões -->
+                <p><strong>Cor:</strong></p>
+                <div class="color-options">
+                    <!-- Corrigido para acessar a cor corretamente -->
+                    <button th:each="color : ${product.color}" th:text="${color.name}" class="color-btn"></button>
+                </div>
 
                 <button class="buy-button">Comprar Agora</button>
             </div>
@@ -43,9 +77,15 @@
 
 
 
-
-
     </div>
+
+    <script>
+        // Função para abrir/fechar o menu expansivo
+        function toggleMenu() {
+            const menu = document.getElementById('menuExpansivo');
+            menu.classList.toggle('active');
+        }
+    </script>
 </body>
 
 </html>
