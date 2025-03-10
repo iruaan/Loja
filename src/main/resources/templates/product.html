@@ -23,18 +23,25 @@
     
         <label for="stockQuantity">Quantidade em Estoque:</label>
         <input type="number" name="stockQuantity" id="stockQuantity" required /><br />
-    
-        <!-- Tamanho -->
-        <label for="sizeId">Tamanho:</label>
-        <select id="sizeId" name="sizeId" required>
-            <option th:each="size : ${sizes}" th:value="${size.id}" th:text="${size.name}"></option>
-        </select>
+<!-- HTML com checkboxes -->
+<label>Tamanhos:</label>
+<div class="checkbox-group">
+    <div th:each="size : ${sizes}" class="checkbox-container">
+        <input type="checkbox" id="sizeId" name="sizeId" th:value="${size.id}" class="styled-checkbox">
+        <label th:text="${size.name}" for="sizeId" class="checkbox-label"></label>
+    </div>
+</div>
 
-        <!-- Cor -->
-        <label for="colorId">Cor:</label>
-        <select id="colorId" name="colorId" required>
-            <option th:each="color : ${colors}" th:value="${color.id}" th:text="${color.name}"></option>
-        </select>
+<label>Cores:</label>
+<div class="checkbox-group">
+    <div th:each="color : ${colors}" class="checkbox-container">
+        <input type="checkbox" id="colorId" name="colorId" th:value="${color.id}" class="styled-checkbox">
+        <label th:text="${color.name}" for="colorId" class="checkbox-label"></label>
+    </div>
+</div>
+
+
+
     
         <label for="gender">Gênero:</label>
         <input type="text" name="gender" id="gender" required /><br />

@@ -24,29 +24,37 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductImage> images = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "size_id", nullable = false)
-    private Size size;  // Agora é um objeto do banco
+    @ManyToMany
+    @JoinTable(
+        name = "product_size",  // Nome da tabela de associação entre Product e Size
+        joinColumns = @JoinColumn(name = "product_id"),
+        inverseJoinColumns = @JoinColumn(name = "size_id")
+    )
+    private List<Size> sizes = new ArrayList<>();  // Pode ter vários tamanhos
 
-    @ManyToOne
-    @JoinColumn(name = "color_id", nullable = false)
-    private Color color;  // Agora é um objeto do banco
+    // Relacionamento Muitos para Muitos com Cor
+    @ManyToMany
+    @JoinTable(
+        name = "product_color",  // Nome da tabela de associação entre Product e Color
+        joinColumns = @JoinColumn(name = "product_id"),
+        inverseJoinColumns = @JoinColumn(name = "color_id")
+    )
+    private List<Color> colors = new ArrayList<>();  // Pode ter várias cores
 
-
-    public Size getSize() {
-        return size;
+    public List<Size> getSizes() {
+        return sizes;
     }
 
-    public void setSize(Size size) {
-        this.size = size;
+    public void setSizes(List<Size> sizes) {
+        this.sizes = sizes;
     }
 
-    public Color getColor() {
-        return color;
+    public List<Color> getColors() {
+        return colors;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
+    public void setColors(List<Color> colors) {
+        this.colors = colors;
     }
 
     private Boolean active = true;  // Ativo por padrão

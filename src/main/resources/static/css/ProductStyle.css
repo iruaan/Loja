@@ -85,3 +85,58 @@ body {
     text-decoration: underline;
 }
 
+/* Estilo geral para a lista de checkboxes */
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Espaçamento entre os checkboxes */
+}
+
+/* Estilo para o contêiner do checkbox */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Estilo para o checkbox */
+.styled-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    appearance: none; /* Remove o estilo padrão do checkbox */
+    background-color: #f1f1f1;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+/* Quando o checkbox estiver marcado */
+.styled-checkbox:checked {
+    background-color: #4CAF50; /* Cor de fundo quando marcado */
+    border-color: #4CAF50;
+}
+
+/* Quando o checkbox estiver marcado e em foco */
+.styled-checkbox:checked:focus {
+    outline: 2px solid #4CAF50;
+}
+
+/* Estilo para o rótulo do checkbox */
+.checkbox-label {
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Mudança de cor do rótulo quando o checkbox é marcado */
+.styled-checkbox:checked + .checkbox-label {
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+/* Efeito de hover no checkbox */
+.styled-checkbox:hover {
+    background-color: #e7e7e7;
+    border-color: #bbb;
+}

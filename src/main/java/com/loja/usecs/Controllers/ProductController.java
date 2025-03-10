@@ -6,12 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.loja.usecs.Model.Color;
 import com.loja.usecs.Model.Product;
 import com.loja.usecs.Model.ProductImage;
@@ -39,28 +36,32 @@ public class ProductController {
             @RequestParam String description,
             @RequestParam Double price,
             @RequestParam Integer stockQuantity,
-            @RequestParam Long sizeId, // ID do tamanho
-            @RequestParam Long colorId, // ID da cor
+            @RequestParam("sizeId") List<Long> sizeId, 
+            @RequestParam("colorId") List<Long> colorId,
             @RequestParam String gender,
             @RequestParam String brand,
             @RequestParam String imageUrl, // Imagem principal
             @RequestParam String category,
             @RequestParam List<String> imageUrls) {
 
-        Size size = sizeRepository.findById(sizeId)
-                .orElseThrow(() -> new RuntimeException("Tamanho não encontrado"));
+        List<Size> size = sizeRepository.findAllById(sizeId);
+                if (sizeId == null) {
+                    throw new RuntimeException("Tamanho não encontrado");
+                }
 
         // Buscar o objeto Color pelo ID
-        Color color = colorRepository.findById(colorId)
-                .orElseThrow(() -> new RuntimeException("Cor não encontrada"));
+        List<Color> color = colorRepository.findAllById(colorId);
+        if (colorId == null) {
+            throw new RuntimeException("Cor não encontrada");
+        }
 
         Product product = new Product();
         product.setName(name);
         product.setDescription(description);
         product.setPrice(price);
         product.setStockQuantity(stockQuantity);
-        product.setSize(size);
-        product.setColor(color);
+        product.setSizes(size);
+        product.setColors(color);
         product.setGender(gender);
         product.setBrand(brand);
         product.setImageUrl(imageUrl);

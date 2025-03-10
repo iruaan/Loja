@@ -41,8 +41,8 @@ public class ProductService {
         product.setDescription(productDetails.getDescription());
         product.setPrice(productDetails.getPrice());
         product.setStockQuantity(productDetails.getStockQuantity());
-        product.setSize(productDetails.getSize());
-        product.setColor(productDetails.getColor());
+        product.setSizes(productDetails.getSizes());
+        product.setColors(productDetails.getColors());
         product.setGender(productDetails.getGender());
         product.setBrand(productDetails.getBrand());
         product.setImageUrl(productDetails.getImageUrl());

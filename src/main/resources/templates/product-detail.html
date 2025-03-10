@@ -17,8 +17,14 @@
             <img th:src="@{/images/logo.png}" alt="USECS Fashion Logo">
         </div>
         <div class="icones-direita">
-            <a href="/login"><div class="login-icon" ><img th:src="@{/images/icons8-user-50.png}" alt="Ícone de Usuário"></div></a>
-            <div class="cart-icon"><img th:src="@{/images/carrinho.png}" alt="Ícone de Carrinho"></div>
+            <a href="/login">
+                <div class="login-icon">
+                    <img th:src="@{/images/icons8-user-50.png}" alt="Ícone de Usuário">
+                </div>
+            </a>
+            <div class="cart-icon">
+                <img th:src="@{/images/carrinho.png}" alt="Ícone de Carrinho">
+            </div>
         </div>
     </header>
 
@@ -32,51 +38,55 @@
         <a href="#">Promoções</a>
     </div>
 
-
     <div class="product-page-container">
         <div class="product-content">
-
+            <!-- Galeria de imagens -->
             <div class="product-gallery">
-                <!-- Imagem Principal -->
                 <div class="main-image">
                     <img th:src="${product.imageUrl}" alt="Imagem do Produto">
                 </div>
                 <div class="secondaryImages">
                     <img th:each="img : ${product.images}" th:src="${img.imageUrl}" alt="Imagem Secundária">
                 </div>
-                
-                
+            </div>
 
             <!-- Informações do produto -->
             <div class="product-info">
                 <h1 th:text="${product.name}"></h1>
                 <p class="product-price" th:text="'R$ ' + ${#numbers.formatDecimal(product.price, 1, 2)}"></p>
-
                 <p class="product-description">
                     <strong>Descrição:</strong> <span th:text="${product.description}"></span>
                 </p>
-
-                <p><strong>Tamanho:</strong></p>
-                <div class="size-options">
-                    <!-- Corrigido para acessar o tamanho corretamente -->
-                    <button th:each="size : ${product.size}" th:text="${size.name}" class="size-btn"></button>
-                </div>
                 
-                <!-- Seleção de Cor com botões -->
-                <p><strong>Cor:</strong></p>
-                <div class="color-options">
-                    <!-- Corrigido para acessar a cor corretamente -->
-                    <button th:each="color : ${product.color}" th:text="${color.name}" class="color-btn"></button>
-                </div>
+<!-- Exibindo os tamanhos disponíveis para o produto -->
+<!-- Exibindo os botões de tamanho -->
+<div>
+    <label>Tamanhos:</label>
+    <div>
+        <button type="button" class="size-button" th:each="size : ${product.sizes}" 
+            th:text="${size.name}" th:data-id="${size.id}" onclick="selectSize(this)"></button>
+    </div>
+</div>
+
+<div>
+    <div>
+        <label>Cores:</label>
+        <div class="color-options">
+            <button type="button" 
+                    class="color-btn" 
+                    th:each="color : ${product.colors}" 
+                    th:data-id="${color.id}" 
+                    onclick="selectColor(this)"
+                    th:style="|background-color: ${#strings.replace(color.name, 'Azul', '#0000FF')};|">
+            </button>
+        </div>
+    </div>
+    
+
 
                 <button class="buy-button">Comprar Agora</button>
             </div>
-
-
         </div>
-
-
-
     </div>
 
     <script>
@@ -85,6 +95,22 @@
             const menu = document.getElementById('menuExpansivo');
             menu.classList.toggle('active');
         }
+        const colorMap = {
+    'Azul': '#0000FF',
+    'Branco': '#FFFFFF',
+    'Preto': '#000000',
+    'Vermelho': '#FF0000'
+};
+
+function selectColor(button) {
+    const colorName = button.innerText; // Aqui não usamos o nome, apenas para exemplo.
+    const colorCode = colorMap[colorName];
+    button.style.backgroundColor = colorCode;
+}
+
+
+
+
     </script>
 </body>
 

@@ -67,8 +67,8 @@ public class PageController {
     
         Product product = optionalProduct.get();  // Atribuindo o produto
         model.addAttribute("product", product);  // Passando o produto para o template
-        model.addAttribute("sizes", product.getSize());
-        model.addAttribute("colors", product.getColor());
+        model.addAttribute("sizes", product.getSizes());
+        model.addAttribute("colors", product.getColors());
     
         return "product-detail";
     }
