@@ -1,4 +1,4 @@
-package com.loja.usecs.Model;
+package com.loja.usecs.Model.Products;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -20,6 +20,22 @@ public class Product {
     private String gender;      // Masculino, Feminino, Unissex
     private String brand;       // Marca da roupa
     private String imageUrl;
+
+    public Product(){
+
+    }
+
+    public Product(Long id, String name, String description, Double price, Integer stockQuantity, String gender,
+            String brand, String imageUrl) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+        this.gender = gender;
+        this.brand = brand;
+        this.imageUrl = imageUrl;
+    }
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductImage> images = new ArrayList<>();
@@ -64,9 +80,7 @@ public class Product {
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
 
-    public Product() {}
 
-    // Getters e Setters
 
     public Long getId() {
         return id;

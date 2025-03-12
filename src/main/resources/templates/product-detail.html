@@ -28,19 +28,8 @@
         </div>
     </header>
 
-    <!-- Menu Expansivo -->
-    <div class="menu-expansivo" id="menuExpansivo">
-        <div class="fechar-menu" onclick="toggleMenu()">&times;</div>
-        <a href="#">Vestidos</a>
-        <a href="#">Blusas</a>
-        <a href="#">Calças</a>
-        <a href="#">Acessórios</a>
-        <a href="#">Promoções</a>
-    </div>
-
     <div class="product-page-container">
         <div class="product-content">
-            <!-- Galeria de imagens -->
             <div class="product-gallery">
                 <div class="main-image">
                     <img th:src="${product.imageUrl}" alt="Imagem do Produto">
@@ -50,67 +39,67 @@
                 </div>
             </div>
 
-            <!-- Informações do produto -->
             <div class="product-info">
                 <h1 th:text="${product.name}"></h1>
-                <p class="product-price" th:text="'R$ ' + ${#numbers.formatDecimal(product.price, 1, 2)}"></p>
-                <p class="product-description">
-                    <strong>Descrição:</strong> <span th:text="${product.description}"></span>
-                </p>
-                
-<!-- Exibindo os tamanhos disponíveis para o produto -->
-<!-- Exibindo os botões de tamanho -->
-<div>
-    <label>Tamanhos:</label>
-    <div>
-        <button type="button" class="size-button" th:each="size : ${product.sizes}" 
-            th:text="${size.name}" th:data-id="${size.id}" onclick="selectSize(this)"></button>
-    </div>
-</div>
+                <p class="product-price" th:text="'R$ ' + ${product.price}"></p>
 
-<div>
-    <div>
-        <label>Cores:</label>
-        <div class="color-options">
-            <button type="button" 
-                    class="color-btn" 
-                    th:each="color : ${product.colors}" 
-                    th:data-id="${color.id}" 
-                    onclick="selectColor(this)"
-                    th:style="|background-color: ${#strings.replace(color.name, 'Azul', '#0000FF')};|">
-            </button>
-        </div>
-    </div>
-    
+                <form th:action="@{/cart/add/{productId}(productId=${product.id})}" method="post">
+                    <input type="hidden" name="productId" th:value="${product.id}" />
 
+                    <!-- Campo de quantidade -->
+                    <label for="quantity">Quantidade:</label>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1" max="10" step="1" required />
 
-                <button class="buy-button">Comprar Agora</button>
+                    <!-- Campo de cor -->
+                    <label for="selectedColor">Escolha a Cor:</label>
+                    <div class="color-options">
+                        <button type="button" th:each="color : ${colors}"
+                                th:data-color="${color.name}"
+                                th:text="${color.name}"
+                                th:onclick="'selectColor(this)'">
+                        </button>
+                        <input type="hidden" id="selectedColor" name="selectedColor" required />
+                    </div>
+
+                    <!-- Campo de tamanho -->
+                    <label for="selectedSize">Escolha o Tamanho:</label>
+                    <div class="size-options">
+                        <button type="button" th:each="size : ${sizes}"
+                                th:data-size="${size.name}"
+                                th:text="${size.name}"
+                                th:onclick="'selectSize(this)'">
+                        </button>
+                        <input type="hidden" id="selectedSize" name="selectedSize" required />
+                    </div>
+
+                    <button type="submit">Adicionar ao Carrinho</button>
+                </form>
             </div>
         </div>
     </div>
 
     <script>
-        // Função para abrir/fechar o menu expansivo
-        function toggleMenu() {
-            const menu = document.getElementById('menuExpansivo');
-            menu.classList.toggle('active');
+        function selectColor(button) {
+            // Remove a classe 'selected' de todos os botões de cor
+            document.querySelectorAll('.color-options button').forEach(btn => btn.classList.remove('selected'));
+            // Adiciona a classe 'selected' ao botão clicado
+            button.classList.add('selected');
+            // Atualiza o valor do input oculto
+            const selectedColor = button.getAttribute('data-color');
+            document.getElementById('selectedColor').value = selectedColor;
+            console.log('Cor selecionada:', selectedColor); // Debug
         }
-        const colorMap = {
-    'Azul': '#0000FF',
-    'Branco': '#FFFFFF',
-    'Preto': '#000000',
-    'Vermelho': '#FF0000'
-};
 
-function selectColor(button) {
-    const colorName = button.innerText; // Aqui não usamos o nome, apenas para exemplo.
-    const colorCode = colorMap[colorName];
-    button.style.backgroundColor = colorCode;
-}
-
-
-
-
+        function selectSize(button) {
+            // Remove a classe 'selected' de todos os botões de tamanho
+            document.querySelectorAll('.size-options button').forEach(btn => btn.classList.remove('selected'));
+            // Adiciona a classe 'selected' ao botão clicado
+            button.classList.add('selected');
+            // Atualiza o valor do input oculto
+            const selectedSize = button.getAttribute('data-size');
+            document.getElementById('selectedSize').value = selectedSize;
+            console.log('Tamanho selecionado:', selectedSize); // Debug
+        }
     </script>
 </body>
 

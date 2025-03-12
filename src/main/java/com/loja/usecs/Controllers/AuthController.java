@@ -6,8 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.loja.usecs.Model.Role;
-import com.loja.usecs.Model.UserInfo;
+import com.loja.usecs.Model.User.Role;
+import com.loja.usecs.Model.User.UserInfo;
 import com.loja.usecs.Repository.UserRepository;
 
 @Controller

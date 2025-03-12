@@ -1,7 +1,9 @@
 package com.loja.usecs.Services;
 
-import com.loja.usecs.Model.Product;
-import com.loja.usecs.Repository.ProductRepository;
+
+import com.loja.usecs.Model.Products.Product;
+import com.loja.usecs.Repository.ProductRepository.ProductRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

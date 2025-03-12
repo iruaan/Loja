@@ -6,10 +6,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.loja.usecs.Model.User.UserInfo;
 import com.loja.usecs.Services.UserLoadService;
 
 @Configuration
@@ -23,7 +26,7 @@ public class WebConfigSecurity {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register", "/login", "/css/**", "/js/**", "/images/**", "/home").permitAll()                                            
+                        .requestMatchers("/register", "/login", "/css/**", "/js/**", "/images/**", "/home", "/products/{id}", "/cart/add", "/cart/add/{productId}").permitAll()                                            
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login") // Define a página de login
@@ -57,6 +60,9 @@ public class WebConfigSecurity {
 
         return authenticationManagerBuilder.build();
     }
+
+
+
 
 
 }

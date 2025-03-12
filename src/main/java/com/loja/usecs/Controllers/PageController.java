@@ -9,11 +9,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import com.loja.usecs.Model.Product;
-import com.loja.usecs.Repository.ColorRepository;
-import com.loja.usecs.Repository.ProductRepository;
-import com.loja.usecs.Repository.SizeRepository;
+import com.loja.usecs.Model.Products.Product;
+import com.loja.usecs.Model.Cart.CartItem;
+import com.loja.usecs.Repository.ProductRepository.CartRepository;
+import com.loja.usecs.Repository.ProductRepository.ColorRepository;
+import com.loja.usecs.Repository.ProductRepository.ProductRepository;
+import com.loja.usecs.Repository.ProductRepository.SizeRepository;
+
 
 
 
@@ -29,6 +34,8 @@ public class PageController {
     @Autowired
     private ColorRepository colorRepository;  
 
+    @Autowired
+    private CartRepository cartRepository;
 
     
     @GetMapping("/home")
@@ -47,6 +54,12 @@ public class PageController {
     public String register(){
         return "register";
     }
+
+    @GetMapping("/cart")
+    public String cart(){
+        return "cart";
+    }
+
 
     @GetMapping("/product")
     public String showProductForm(Model model) {

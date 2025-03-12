@@ -1,10 +1,12 @@
-package com.loja.usecs.Repository;
+package com.loja.usecs.Repository.ProductRepository;
 
-import com.loja.usecs.Model.Product;
+
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.loja.usecs.Model.Products.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {

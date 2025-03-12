@@ -1,4 +1,4 @@
-package com.loja.usecs.Model;
+package com.loja.usecs.Model.User;
 
 import java.util.Collection;
 import java.util.List;
@@ -30,6 +30,16 @@ public class UserInfo implements UserDetails {
 
     @Column(nullable = false)
     private Role role;
+
+    public UserInfo(){
+        
+    }
+    public UserInfo(Long id, String email, String password, Role role) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 
     public Long getId() {
         return id;
@@ -77,4 +87,5 @@ public class UserInfo implements UserDetails {
     public String getUsername() {
         return email;
     }
+
 }

@@ -1,4 +1,4 @@
-package com.loja.usecs.Model;
+package com.loja.usecs.Model.Products;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

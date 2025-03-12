@@ -1,4 +1,7 @@
-package com.loja.usecs.Model;
+package com.loja.usecs.Model.Cart;
+
+import com.loja.usecs.Model.Products.Product;
+import com.loja.usecs.Model.User.UserInfo;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,14 +18,46 @@ public class CartItem {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "users_id")
     private UserInfo user;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "products_id")
     private Product product;
 
     private Integer quantity;
+    private String selectedColor;
+    private String selectedSize;
+
+        // Construtor sem o ID (recomendado)
+        public CartItem(UserInfo user, Product product, Integer quantity, String selectedColor, String selectedSize) {
+            this.user = user;
+            this.product = product;
+            this.quantity = quantity;
+            this.selectedColor = selectedColor;
+
+        }
+          
+
+    public CartItem(){
+
+    }
+
+    public String getSelectedColor() {
+        return selectedColor;
+    }
+
+    public void setSelectedColor(String selectedColor) {
+        this.selectedColor = selectedColor;
+    }
+
+    public String getSelectedSize() {
+        return selectedSize;
+    }
+
+    public void setSelectedSize(String selectedSize) {
+        this.selectedSize = selectedSize;
+    }
 
     public Long getId() {
         return id;

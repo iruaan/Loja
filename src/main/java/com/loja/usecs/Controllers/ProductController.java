@@ -9,12 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.loja.usecs.Model.Color;
-import com.loja.usecs.Model.Product;
-import com.loja.usecs.Model.ProductImage;
-import com.loja.usecs.Model.Size;
-import com.loja.usecs.Repository.ColorRepository;
-import com.loja.usecs.Repository.SizeRepository;
+import com.loja.usecs.Model.Products.Color;
+import com.loja.usecs.Model.Products.Product;
+import com.loja.usecs.Model.Products.ProductImage;
+import com.loja.usecs.Model.Products.Size;
+import com.loja.usecs.Repository.ProductRepository.ColorRepository;
+import com.loja.usecs.Repository.ProductRepository.SizeRepository;
 import com.loja.usecs.Services.ProductService;
 
 @Controller

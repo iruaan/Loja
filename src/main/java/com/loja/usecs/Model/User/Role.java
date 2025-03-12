@@ -1,4 +1,4 @@
-package com.loja.usecs.Model;
+package com.loja.usecs.Model.User;
 
 public enum Role{
     
