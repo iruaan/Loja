@@ -1,5 +1,7 @@
 package com.loja.loja.Model.Cart;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.loja.loja.Model.Products.Product;
 import com.loja.loja.Model.User.UserInfo;
 
@@ -23,7 +25,7 @@ public class CartItem {
 
     @ManyToOne
     @JoinColumn(name = "products_id")
-    private Product product;
+ private Product product;
 
     private Integer quantity;
     private String selectedColor;

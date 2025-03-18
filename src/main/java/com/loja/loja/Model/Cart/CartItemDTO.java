@@ -1,18 +1,17 @@
 package com.loja.loja.Model.Cart;
 
 public class CartItemDTO {
-
     private Long id;
-    private Integer quantity;
-    private String selectedColor;
-    private String selectedSize;
+    private String productName;
+    private double productPrice;
+    private int quantity;
 
-    public CartItemDTO(Long id, Integer quantity, String selectedColor,
-            String selectedSize) {
+    // Construtor, getters e setters
+    public CartItemDTO(Long id, String productName, double productPrice, int quantity) {
         this.id = id;
+        this.productName = productName;
+        this.productPrice = productPrice;
         this.quantity = quantity;
-        this.selectedColor = selectedColor;
-        this.selectedSize = selectedSize;
     }
 
     public Long getId() {
@@ -23,28 +22,30 @@ public class CartItemDTO {
         this.id = id;
     }
 
-    public Integer getQuantity() {
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public double getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(double productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public String getSelectedColor() {
-        return selectedColor;
-    }
-
-    public void setSelectedColor(String selectedColor) {
-        this.selectedColor = selectedColor;
-    }
-
-    public String getSelectedSize() {
-        return selectedSize;
-    }
-
-    public void setSelectedSize(String selectedSize) {
-        this.selectedSize = selectedSize;
-    }
-
+    // Getters e Setters
 }
+

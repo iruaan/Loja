@@ -81,6 +81,12 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+    <groupId>com.stripe</groupId>
+    <artifactId>stripe-java</artifactId>
+    <version>24.0.0</version> <!-- Verifique a versão mais recente no site do Stripe -->
+</dependency>
 	</dependencies>
 
 	<build>

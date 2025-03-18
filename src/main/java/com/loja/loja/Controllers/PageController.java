@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.loja.loja.Model.Cart.CartItem;
 import com.loja.loja.Model.Products.Product;
+import com.loja.loja.Repository.ProductRepository.CartRepository;
 import com.loja.loja.Repository.ProductRepository.ColorRepository;
 import com.loja.loja.Repository.ProductRepository.ProductRepository;
 import com.loja.loja.Repository.ProductRepository.SizeRepository;
@@ -29,6 +31,7 @@ public class PageController {
 
     @Autowired
     private ColorRepository colorRepository;  
+
 
  
 
@@ -50,11 +53,6 @@ public class PageController {
         return "register";
     }
 
-    
-    @GetMapping("/checkout")
-    public String checkout(){
-        return "checkout";
-    }
 
 
     @GetMapping("/product")
@@ -81,7 +79,7 @@ public class PageController {
     
         return "product-detail";
     }
-    
-    
+
+
 
 }
