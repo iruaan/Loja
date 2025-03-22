@@ -16,6 +16,8 @@ import com.loja.loja.Repository.ProductRepository.CartRepository;
 import com.loja.loja.Repository.ProductRepository.ColorRepository;
 import com.loja.loja.Repository.ProductRepository.ProductRepository;
 import com.loja.loja.Repository.ProductRepository.SizeRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 
 
@@ -31,9 +33,11 @@ public class PageController {
 
     @Autowired
     private ColorRepository colorRepository;  
+    
+    @Autowired
+    private CartRepository cartRepository;  
 
 
- 
 
     
     @GetMapping("/home")
@@ -54,6 +58,16 @@ public class PageController {
     }
 
 
+    @GetMapping("/checkout")
+    public String showCheckout(Model model) {
+        List<CartItem> cartItems = cartRepository.findAll();
+        model.addAttribute("cartItems", cartItems);
+    
+    
+        return "checkout";
+    }
+    
+    
 
     @GetMapping("/product")
     public String showProductForm(Model model) {

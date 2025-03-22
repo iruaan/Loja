@@ -1,4 +1,4 @@
-package com.loja.loja.Model;
+package com.loja.loja.Controllers.Stripe;
 
 public class PaymentResponse {
     private String clientSecret;

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento com Stripe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #payment-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        #card-element {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        #submit-button {
+            background-color: #6772e5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        #submit-button:disabled {
+            background-color: #a3a8d0;
+            cursor: not-allowed;
+        }
+
+        #error-message {
+            color: #ff3860;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .total-amount {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="payment-container">
+        <h2>Seu Carrinho</h2>
+
+        <!-- Lista de itens do carrinho -->
+        <div id="cart-items">
+            <!-- Itens serão adicionados dinamicamente pelo JavaScript -->
+        </div>
+
+        <!-- Valor total -->
+        <div class="total-amount">
+            Total: <span id="total-amount">R$ 0,00</span>
+        </div>
+
+        <!-- Formulário de pagamento -->
+        <form id="payment-form">
+            <!-- Nome do titular do cartão -->
+            <div class="form-group">
+                <label for="cardholder-name">Nome do Titular do Cartão</label>
+                <input type="text" id="cardholder-name" placeholder="Nome completo" required>
+            </div>
+
+            <!-- E-mail -->
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="Seu e-mail" required>
+            </div>
+
+            <!-- Elemento do Stripe para os detalhes do cartão -->
+            <div id="card-element">
+                <!-- O Stripe injetará os campos do cartão aqui -->
+            </div>
+
+            <!-- Mensagens de erro -->
+            <div id="card-errors" role="alert"></div>
+
+            <!-- Botão de pagamento -->
+            <button id="submit-button">Pagar</button>
+            <div id="error-message"></div>
+        </form>
+    </div>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        // Configuração do Stripe
+        const stripe = Stripe('pk_test_51R2F8p01Fjd6YAYzqKLSohaGCXJR1KXR6zFFdThGoPVhrZ5bYdstaV7eP130lA84iWLDfzcl9C75OvQzLQ3GLof700lQXdQGuL'); // Substitua pela sua chave pública
+
+        // Cria uma instância do Stripe Elements
+        const elements = stripe.elements();
+
+        // Estilo personalizado para os campos do Stripe Elements
+        const style = {
+            base: {
+                fontSize: '16px',
+                color: '#32325d',
+                fontFamily: 'Arial, sans-serif',
+                '::placeholder': {
+                    color: '#aab7c4',
+                },
+            },
+            invalid: {
+                color: '#fa755a',
+            },
+        };
+
+        // Cria o elemento do cartão e monta no container
+        const cardElement = elements.create('card', { style: style });
+        cardElement.mount('#card-element');
+
+        // Adiciona validação em tempo real para os campos do cartão
+        cardElement.on('change', (event) => {
+            const displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
+            }
+        });
+
+        // Função para buscar os itens do carrinho
+        async function fetchCartItems() {
+            try {
+                console.log('Buscando itens do carrinho...');
+                const response = await fetch('/api/cart');
+
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar o carrinho');
+                }
+
+                // Converte a resposta para JSON
+                const cartItems = await response.json();
+                console.log('Itens do carrinho recebidos:', cartItems);
+
+                // Exibe os itens do carrinho na página
+                displayCartItems(cartItems);
+
+                // Retorna os itens do carrinho para uso posterior
+                return cartItems;
+            } catch (error) {
+                console.error('Erro ao buscar itens do carrinho:', error);
+                return [];
+            }
+        }
+
+        // Função para exibir os itens do carrinho
+        function displayCartItems(cartItems) {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalAmountElement = document.getElementById('total-amount');
+            let totalAmount = 0;
+
+            console.log('Exibindo itens do carrinho:', cartItems);
+
+            // Limpa o container antes de adicionar os itens
+            cartItemsContainer.innerHTML = '';
+
+            // Percorre os itens do carrinho e os exibe
+            cartItems.forEach(item => {
+                const itemTotal = item.productPrice * item.quantity; // Calcula o total do item
+                totalAmount += itemTotal;
+
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                itemElement.innerHTML = `
+                    <h3>${item.productName}</h3> <!-- Nome do produto -->
+                    <p>Preço: R$ ${(item.productPrice).toFixed(2)}</p> <!-- Preço unitário -->
+                    <p>Quantidade: ${item.quantity}</p> <!-- Quantidade -->
+                    <p>Total: R$ ${(itemTotal).toFixed(2)}</p> <!-- Total do item -->
+                `;
+                cartItemsContainer.appendChild(itemElement);
+            });
+
+            // Exibe o valor total
+            totalAmountElement.textContent = `R$ ${(totalAmount).toFixed(2)}`;
+            console.log('Valor total calculado:', totalAmount);
+        }
+
+        // Função para processar o pagamento
+        async function handlePayment(cartItems) {
+            const submitButton = document.getElementById('submit-button');
+            const errorMessageElement = document.getElementById('error-message');
+
+            // Desabilita o botão de pagamento para evitar múltiplos cliques
+            submitButton.disabled = true;
+            errorMessageElement.textContent = '';
+
+            // Coleta os dados do formulário
+            const cardholderName = document.getElementById('cardholder-name').value;
+            const email = document.getElementById('email').value;
+
+            try {
+                // Cria um PaymentMethod com os dados do cartão
+                const { paymentMethod, error } = await stripe.createPaymentMethod({
+                    type: 'card',
+                    card: cardElement,
+                    billing_details: {
+                        name: cardholderName,
+                        email: email,
+                    },
+                });
+
+                if (error) {
+                    throw error;
+                }
+
+                console.log('PaymentMethod criado:', paymentMethod);
+
+                // Envia o PaymentMethod e os itens do carrinho para o backend
+                const response = await fetch('http://localhost:8080/api/payment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        paymentMethodId: paymentMethod.id,
+                        cartItems,
+                        cardholderName,
+                        email,
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erro ao processar o pagamento');
+                }
+
+                const paymentResult = await response.json();
+                console.log('Pagamento processado com sucesso:', paymentResult);
+
+                // Redireciona para uma página de sucesso ou exibe uma mensagem
+                alert('Pagamento realizado com sucesso!');
+                window.location.href = '/success'; // Redireciona para a página de sucesso
+            } catch (error) {
+                console.error('Erro ao processar o pagamento:', error);
+                errorMessageElement.textContent = error.message || 'Ocorreu um erro ao processar o pagamento.';
+            } finally {
+                // Reabilita o botão de pagamento
+                submitButton.disabled = false;
+            }
+        }
+
+        // Busca os itens do carrinho quando a página carrega
+        fetchCartItems();
+
+        // Adiciona um listener para o formulário de pagamento
+        const paymentForm = document.getElementById('payment-form');
+        paymentForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            // Busca os itens do carrinho novamente (para garantir que estão atualizados)
+            const cartItems = await fetchCartItems();
+
+            // Processa o pagamento
+            handlePayment(cartItems);
+        });
+    </script>
+</body>
+
+</html>

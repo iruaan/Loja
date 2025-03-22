@@ -23,7 +23,7 @@ public class WebConfigSecurity {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register", "/login", "/css/**", "/js/**", "/images/**", "/home", "/products/{id}", "/cart/add", "/cart/add/{productId}").permitAll()                                            
+                        .requestMatchers("/register","/api/cart", "/login", "/css/**", "/js/**", "/images/**", "/home", "/products/{id}", "/cart/add", "/cart/add/{productId}").permitAll()                                            
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login") // Define a página de login

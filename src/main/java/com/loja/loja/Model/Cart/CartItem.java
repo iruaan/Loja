@@ -1,7 +1,5 @@
 package com.loja.loja.Model.Cart;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.loja.loja.Model.Products.Product;
 import com.loja.loja.Model.User.UserInfo;
 
@@ -37,6 +35,7 @@ public class CartItem {
             this.product = product;
             this.quantity = quantity;
             this.selectedColor = selectedColor;
+            this.selectedSize = selectedSize;
 
         }
           
@@ -91,6 +90,11 @@ public class CartItem {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+
+    public Double getProductPrice() {
+      return product.getPrice();
     }
 
     // getters e setters

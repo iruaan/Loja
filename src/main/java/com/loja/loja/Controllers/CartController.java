@@ -1,5 +1,6 @@
 package com.loja.loja.Controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.loja.loja.Model.Cart.CartItemDTO;
 import com.loja.loja.Model.Cart.CartItem;
 import com.loja.loja.Model.Products.Color;
 import com.loja.loja.Model.Products.Product;
@@ -23,7 +28,6 @@ import com.loja.loja.Repository.ProductRepository.CartRepository;
 import com.loja.loja.Repository.ProductRepository.ColorRepository;
 import com.loja.loja.Repository.ProductRepository.ProductRepository;
 import com.loja.loja.Repository.ProductRepository.SizeRepository;
-
 
 @Controller
 public class CartController {
@@ -94,13 +98,45 @@ public class CartController {
         return "redirect:/products/" + productId;
     }
 
-       @GetMapping("/cart")
+    @GetMapping("/cart")
     public String home(Model model) {
         List<CartItem> cartItems = cartRepository.findAll();
-        model.addAttribute("cartItems", cartItems); 
-        return "cart"; 
+        model.addAttribute("cartItems", cartItems);
+        double totalAmount = cartItems.stream()
+                .mapToDouble(item -> item.getProductPrice() * item.getQuantity())
+                .sum();
+
+
+        // Adiciona os itens e o valor total ao modelo
+        model.addAttribute("cartItems", cartItems);
+        model.addAttribute("totalAmount", totalAmount);
+
+        System.out.println(totalAmount);
+
+        return "cart"; // Nome do template Thymeleaf (cart.html)
+
     }
 
 
 
+    @GetMapping("/api/cart")
+    @ResponseBody
+    public List<CartItemDTO> getCartItems() {
+        List<CartItem> cartItems = cartRepository.findAll();
+        List<CartItemDTO> cartDTOs = new ArrayList<>();
+    
+        // Converte CartItem para CartDTO
+        for (CartItem item : cartItems) {
+            CartItemDTO cartDTO = new CartItemDTO(
+                item.getProduct().getName(),
+                item.getProduct().getPrice(), // Certifique-se de que está usando o preço do produto
+                item.getQuantity()
+            );
+            cartDTOs.add(cartDTO);
+        }
+        return cartDTOs;
+    }
 }
+
+    
+
