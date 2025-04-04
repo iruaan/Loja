@@ -113,7 +113,7 @@ public class CartController {
 
         System.out.println(totalAmount);
 
-        return "cart"; // Nome do template Thymeleaf (cart.html)
+        return "cart"; 
 
     }
 
@@ -129,7 +129,7 @@ public class CartController {
         for (CartItem item : cartItems) {
             CartItemDTO cartDTO = new CartItemDTO(
                 item.getProduct().getName(),
-                item.getProduct().getPrice(), // Certifique-se de que está usando o preço do produto
+                item.getProduct().getPrice(), 
                 item.getQuantity()
             );
             cartDTOs.add(cartDTO);

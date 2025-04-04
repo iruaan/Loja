@@ -11,25 +11,43 @@
     <h1>Meu Carrinho</h1>
 
     <div class="cart-container">
-        <div class="cart-item" th:each="item : ${cartItems}">
+        <div class="cart-item" th:each="item : ${cartItems}" th:id="'item-' + ${item.id}">
             <img th:src="${item.product.imageUrl}" alt="Imagem do Produto">
             <h3 th:text="${item.product.name}"></h3>
             <p>Preço: R$ <span th:text="${item.product.price}"></span></p>
             <p>Quantidade: <span th:text="${item.quantity}"></span></p>
             <p>Cor: <span th:text="${item.selectedColor}"></span></p>
             <p>Tamanho: <span th:text="${item.selectedSize}"></span></p>
-            <form th:action="@{/cart/remove/{id}(id=${item.id})}" method="post">
-                <button type="submit">Remover</button>
-            </form>
+            
+            <button th:onclick="'removeItem(event, ' + ${item.id} + ')'" >Remover</button>
         </div>
     </div>
+    
 
     <div class="cart-total">
-        Total: R$ <span th:text="${total}"></span>
+        Total: R$ <span th:text="${totalAmount}"></span></span>
     </div>
 
     <a href="/checkout"><button class="checkout-button">Finalizar Compra</button></a>
 
+    <script>
+        function removeItem(event, itemId) {
+            event.preventDefault(); // Impede o envio normal do formulário
     
+            fetch(`/cart/remove/${itemId}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById(`item-${itemId}`).remove(); // Remove o item da tela
+         
+                } else {
+                    console.error('Erro ao remover item');
+                }
+            })
+            .catch(error => console.error('Erro:', error));
+        }
+    </script>
 </body>
 </html>

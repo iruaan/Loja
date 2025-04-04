@@ -17,8 +17,12 @@
             <img th:src="@{/images/logo.png}" alt="USECS Fashion Logo">
         </div>
         <div class="icones-direita">
-            <a href="/login"><div class="login-icon" ><img th:src="@{/images/icons8-user-50.png}" alt="Ícone de Usuário"></div></a>
-            <a href="/cart"><div class="cart-icon"><img th:src="@{/images/carrinho.png}" alt="Ícone de Carrinho"></div></a>
+            <a href="/login">
+                <div class="login-icon"><img th:src="@{/images/icons8-user-50.png}" alt="Ícone de Usuário"></div>
+            </a>
+            <a href="/cart">
+                <div class="cart-icon"><img th:src="@{/images/carrinho.png}" alt="Ícone de Carrinho"></div>
+            </a>
         </div>
     </header>
 
@@ -35,7 +39,7 @@
     <!-- Hero Section -->
     <section class="hero">
         <div>
-<!--        <h1>Coleção Outono/Inverno 2023</h1>
+            <!--        <h1>Coleção Outono/Inverno 2023</h1>
         
             <button>Compre Agora</button> -->
         </div>
@@ -45,16 +49,19 @@
     <section class="produtos">
         <h2>Nossos Produtos</h2>
         <div class="produtos-container">
-    <div class="produto" th:each="product : ${products}">
-        <a th:href="@{/products/{id}(id=${product.id})}">
-        <img th:src="${product.imageUrl}" alt="Imagem do Produto"> 
-        </a>
-        <h3 th:text="${product.name}"></h3>
-        <p th:text="'R$ ' + ${#numbers.formatDecimal(product.price, 1, 2)}"></p>
-    </div>
-</div>
+            <div class="produto" th:each="product : ${products}">
+                <a th:href="@{/products/{id}(id=${product.id})}">
+                    <img th:src="${product.imageUrl}" alt="Imagem do Produto">
+                    <button th:onclick="'deletarItem(' + ${product.id} + ', event)'" type="button">Deletar</button>
+
+
+                </a>
+                <h3 th:text="${product.name}"></h3>
+                <p th:text="'R$ ' + ${#numbers.formatDecimal(product.price, 1, 2)}"></p>
+            </div>
+        </div>
     </section>
-    
+
 
     <script>
         // Função para abrir/fechar o menu expansivo
@@ -62,6 +69,27 @@
             const menu = document.getElementById('menuExpansivo');
             menu.classList.toggle('active');
         }
+
+        function deletarItem(id, event) {
+            event.preventDefault(); // ⛔ impede o submit ou redirecionamento automático
+
+            fetch(`/products/${id}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Item deletado com sucesso!');
+                        location.reload(); // recarrega a página (ou atualiza a lista, se quiser)
+                    } else {
+                        alert('Erro ao deletar o item');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro na requisição:', error);
+                });
+        }
+
+
     </script>
 </body>
 
