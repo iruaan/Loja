@@ -1,6 +1,6 @@
 # 🛍️ Loja Online com Spring Boot
 
-Este é um projeto de e-commerce desenvolvido com **Spring Boot 3.4.3**, utilizando **Thymeleaf**, **Spring Security**, **JPA**, **MySQL** e integração com **Stripe** para pagamentos. O sistema permite aos usuários navegar pelos produtos, adicioná-los ao carrinho e realizar o checkout.
+Este é um projeto de e-commerce focado no Backend, mas possui alguns elementos basicos de frontend desenvolvido com **Spring Boot 3.4.3**, utilizando **Thymeleaf**, **Spring Security**, **JPA**, **MySQL** e integração com **Stripe** para pagamentos. O sistema permite aos usuários navegar pelos produtos, adicioná-los ao carrinho e realizar o checkout.
 
 ## ⚙️ Tecnologias Utilizadas
 
