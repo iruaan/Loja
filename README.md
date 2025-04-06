@@ -95,4 +95,4 @@ http://localhost:8080/cart // Carrinho de produtos
 
 
 Desenvolvido por **Ruan Antonio dos Santos **  
-[LinkedIn](https://linkedin.com) | [GitHub](https://github.com)
+[LinkedIn](https://www.linkedin.com/in/ruan-santoss/)
