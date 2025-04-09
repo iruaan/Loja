@@ -1,19 +1,17 @@
 package com.loja.loja.Controllers;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.loja.loja.Model.Cart.CartItem;
 import com.loja.loja.Model.Products.Product;
@@ -21,7 +19,6 @@ import com.loja.loja.Repository.ProductRepository.CartRepository;
 import com.loja.loja.Repository.ProductRepository.ColorRepository;
 import com.loja.loja.Repository.ProductRepository.ProductRepository;
 import com.loja.loja.Repository.ProductRepository.SizeRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class PageController {
@@ -56,12 +53,21 @@ public class PageController {
     }
 
     @GetMapping("/checkout")
-    public String showCheckout(Model model) {
-        List<CartItem> cartItems = cartRepository.findAll();
+    public String showCheckout(@RequestParam(name = "selectedIds", required = false) List<Long> selectedIds, Model model) {
+        List<CartItem> cartItems;
+    
+        if (selectedIds != null && !selectedIds.isEmpty()) {
+            cartItems = cartRepository.findAllById(selectedIds); // <-- aqui pega só os marcados
+        } else {
+            cartItems = new ArrayList<>(); // vazio, se nada foi marcado
+        }
+    
         model.addAttribute("cartItems", cartItems);
-
         return "checkout";
     }
+    
+    
+
 
     @GetMapping("/product")
     public String showProductForm(Model model) {
@@ -94,9 +100,9 @@ public class PageController {
         if (cartRepository.existsById(itemId)) {
             cartRepository.deleteById(itemId);
     
-            return ResponseEntity.ok().build(); // Retorna apenas um "200 OK"
+            return ResponseEntity.ok().build(); 
         }
-        return ResponseEntity.notFound().build(); // Retorna "404 Not Found" se o item não existir
+        return ResponseEntity.notFound().build(); 
     }
 
     @DeleteMapping("/products/{id}")

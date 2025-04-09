@@ -201,35 +201,51 @@
 
         // Função para exibir os itens do carrinho
         function displayCartItems(cartItems) {
-            const cartItemsContainer = document.getElementById('cart-items');
-            const totalAmountElement = document.getElementById('total-amount');
-            let totalAmount = 0;
+    const cartItemsContainer = document.getElementById('cart-items');
+    const totalAmountElement = document.getElementById('total-amount');
+    let totalAmount = 0;
 
-            console.log('Exibindo itens do carrinho:', cartItems);
+    console.log('Exibindo itens do carrinho:', cartItems);
 
-            // Limpa o container antes de adicionar os itens
-            cartItemsContainer.innerHTML = '';
+    // Limpa o container antes de adicionar os itens
+    cartItemsContainer.innerHTML = '';
 
-            // Percorre os itens do carrinho e os exibe
-            cartItems.forEach(item => {
-                const itemTotal = item.productPrice * item.quantity; // Calcula o total do item
-                totalAmount += itemTotal;
+    // Percorre os itens do carrinho e os exibe
+    cartItems.forEach(item => {
+        const itemTotal = item.productPrice * item.quantity; // Calcula o total do item
+        totalAmount += itemTotal;
 
-                const itemElement = document.createElement('div');
-                itemElement.className = 'cart-item';
-                itemElement.innerHTML = `
-                    <h3>${item.productName}</h3> <!-- Nome do produto -->
-                    <p>Preço: R$ ${(item.productPrice).toFixed(2)}</p> <!-- Preço unitário -->
-                    <p>Quantidade: ${item.quantity}</p> <!-- Quantidade -->
-                    <p>Total: R$ ${(itemTotal).toFixed(2)}</p> <!-- Total do item -->
-                `;
-                cartItemsContainer.appendChild(itemElement);
-            });
+        const itemElement = document.createElement('div');
+        itemElement.className = 'cart-item';
 
-            // Exibe o valor total
-            totalAmountElement.textContent = `R$ ${(totalAmount).toFixed(2)}`;
-            console.log('Valor total calculado:', totalAmount);
-        }
+        // Criação dos elementos internos separadamente
+        const title = document.createElement('h3');
+        title.textContent = item.productName;
+
+        const price = document.createElement('p');
+        price.textContent = `Preço: R$ ${item.productPrice.toFixed(2)}`;
+
+        const quantity = document.createElement('p');
+        quantity.textContent = `Quantidade: ${item.quantity}`;
+
+        const total = document.createElement('p');
+        total.textContent = `Total: R$ ${itemTotal.toFixed(2)}`;
+
+        // Adiciona os elementos no item
+        itemElement.appendChild(title);
+        itemElement.appendChild(price);
+        itemElement.appendChild(quantity);
+        itemElement.appendChild(total);
+
+        // Adiciona o item no container
+        cartItemsContainer.appendChild(itemElement);
+    });
+
+    // Exibe o valor total
+    totalAmountElement.textContent = `R$ ${totalAmount.toFixed(2)}`;
+    console.log('Valor total calculado:', totalAmount);
+}
+
 
         // Função para processar o pagamento
         async function handlePayment(cartItems) {
