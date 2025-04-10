@@ -1,6 +1,5 @@
 package com.loja.loja.Controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.loja.loja.Model.Products.Color;
-import com.loja.loja.Model.Products.Product;
-import com.loja.loja.Model.Products.ProductImage;
-import com.loja.loja.Model.Products.Size;
-import com.loja.loja.Repository.ProductRepository.ColorRepository;
-import com.loja.loja.Repository.ProductRepository.SizeRepository;
 import com.loja.loja.Services.ProductService;
 
 @Controller
