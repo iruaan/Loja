@@ -25,11 +25,6 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @Autowired
-    private SizeRepository sizeRepository;
-
-    @Autowired
-    private ColorRepository colorRepository;
 
     @PostMapping("/create")
     public ResponseEntity<String> createProduct(
@@ -44,39 +39,8 @@ public class ProductController {
             @RequestParam String imageUrl, // Imagem principal
             @RequestParam String category,
             @RequestParam List<String> imageUrls) {
+                return productService.createProduct(name, description, price, stockQuantity, sizeId, colorId, gender, brand, imageUrl, category, imageUrls);
 
-        List<Size> size = sizeRepository.findAllById(sizeId);
-                if (sizeId == null) {
-                    throw new RuntimeException("Tamanho não encontrado");
-                }
 
-        // Buscar o objeto Color pelo ID
-        List<Color> color = colorRepository.findAllById(colorId);
-        if (colorId == null) {
-            throw new RuntimeException("Cor não encontrada");
-        }
-
-        Product product = new Product();
-        product.setName(name);
-        product.setDescription(description);
-        product.setPrice(price);
-        product.setStockQuantity(stockQuantity);
-        product.setSizes(size);
-        product.setColors(color);
-        product.setGender(gender);
-        product.setBrand(brand);
-        product.setImageUrl(imageUrl);
-        product.setCategory(category);
-
-        List<ProductImage> images = new ArrayList<>();
-        for (String url : imageUrls) {
-            ProductImage productImage = new ProductImage(url.trim(), product); // Remover espaços em branco
-            images.add(productImage);
-        }
-        product.setImages(images); // Definir as imagens secundárias no produto
-
-        productService.createProduct(product);
-
-        return ResponseEntity.ok("Produto criado com sucesso!");
     }
 }
